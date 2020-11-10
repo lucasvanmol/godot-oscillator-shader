@@ -1,0 +1,34 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Springy Oscillators"
+run/main_scene="res://3D/Spring3D.tscn"
+config/icon="res://eiffel_tower_icon.png"
+
+[debug]
+
+settings/main_scene="res://2D/Spring2D.tscn"
+
+[display]
+
+window/size/height=1024
+
+[rendering]
+
+environment/default_clear_color=Color( 1, 0.848333, 0.74, 1 )
+quality/filters/msaa=4
+environment/default_environment="res://default_env.tres"

@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://3D/assets/3D_Eiffel.tres" type="Material" id=1]
+[ext_resource path="res://3D/mouse_interaction.gd" type="Script" id=2]
+[ext_resource path="res://3D/eiffel_oscillator_3D.gd" type="Script" id=3]
+[ext_resource path="res://3D/assets/EiffelTower.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SphereShape" id=1]
+radius = 2.0
+
+[sub_resource type="ProceduralSky" id=2]
+sun_color = Color( 0.933333, 0.941176, 0.847059, 1 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_sky = SubResource( 2 )
+background_color = Color( 0.967, 1, 0.78, 1 )
+background_energy = 0.0
+
+[node name="Spring3D" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.915655, 0.401964, 0, -0.401964, 0.915655, 0, 3.836, 4.756 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 2.28775, 0 )
+shape = SubResource( 1 )
+
+[node name="EiffelTower" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0494975, 0, 0.0494975, 0, 0.07, 0, -0.0494975, 0, 0.0494975, 0, 0, 0 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.380734, -0.139709, 0.91407, 0.0537187, 0.990193, 0.128968, -0.923123, -1.71945e-08, 0.384505, 0, 7.85122, 0 )
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+[connection signal="input_event" from="Area" to="." method="_on_Area_input_event"]

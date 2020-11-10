@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://2D/shaders/bend2D.shader" type="Shader" id=1]
+[ext_resource path="res://2D/eiffel_oscillator_2d.gd" type="Script" id=2]
+[ext_resource path="res://2D/assets/eiffel_tower_padding.bmp" type="Texture" id=3]
+
+
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/STRENGTH = -0.517
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[node name="eiffel_oscillator" type="Sprite"]
+material = SubResource( 1 )
+scale = Vector2( 0.452, 0.48 )
+texture = ExtResource( 3 )
+script = ExtResource( 2 )

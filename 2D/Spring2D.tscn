@@ -1,0 +1,187 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://2D/assets/eiffel_oscillator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://2D/assets/eiffel_tower_padding.bmp" type="Texture" id=2]
+[ext_resource path="res://2D/assets/eiffel_tower.bmp" type="Texture" id=3]
+[ext_resource path="res://2D/shaders/rotation_UVdemo.shader" type="Shader" id=5]
+[ext_resource path="res://2D/shaders/twirl_UVdemo.shader" type="Shader" id=6]
+[ext_resource path="res://2D/shaders/bend2D_UVdemo.shader" type="Shader" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/ANGLE = 0.5
+shader_param/CENTER = Vector2( 0.5, 0.5 )
+shader_param/TILING = 5.0
+
+[sub_resource type="StreamTexture" id=14]
+flags = 4
+load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 6 )
+shader_param/STRENGTH = 0.199
+shader_param/CENTER = Vector2( 0.5, 0.5 )
+shader_param/TILING = 5.0
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform float STRENGTH = 0.0;
+
+uniform vec2 CENTER = vec2(0.5);
+
+void fragment() {
+	vec2 uv = (UV - CENTER);
+	
+	float angle = length(uv) * STRENGTH * sin(2.0* TIME);
+	
+	mat2 rot = mat2(
+		vec2( cos(angle), -sin(angle) ),
+		vec2( sin(angle),  cos(angle)));
+	
+	uv = rot * uv + CENTER;
+	
+	COLOR = texture(TEXTURE, uv);
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/STRENGTH = 0.5
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 7 )
+shader_param/STRENGTH = -0.082
+shader_param/CENTER = Vector2( 0.5, 1 )
+shader_param/TILING = 5.0
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform float STRENGTH = 0.0;
+uniform vec2 CENTER = vec2(0.5);
+
+void fragment() {
+	vec2 uv = (UV - CENTER);
+	
+	float angle = -uv.y * STRENGTH * sin(2.0* TIME);
+	
+	mat2 rot = mat2(
+		vec2( cos(angle), -sin(angle) ),
+		vec2( sin(angle),  cos(angle)));
+	
+	uv = rot * uv + CENTER;
+	
+	COLOR = texture(TEXTURE, uv);
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/STRENGTH = 0.5
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform float STRENGTH = 0.0;
+uniform vec2 CENTER = vec2(0.5);
+
+void fragment() {
+	vec2 uv = UV - CENTER;
+
+	float angle =  STRENGTH * uv.y;
+
+	mat2 rot = mat2(
+		vec2( cos(angle), -sin(angle) ),
+		vec2( sin(angle),  cos(angle)));
+
+	uv = rot * uv + CENTER;
+	COLOR = texture(TEXTURE, uv);
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/STRENGTH = -0.517
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/STRENGTH = -0.517
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[sub_resource type="ShaderMaterial" id=11]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/STRENGTH = -0.517
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[sub_resource type="ShaderMaterial" id=12]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/STRENGTH = -0.517
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[sub_resource type="ShaderMaterial" id=13]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/STRENGTH = -0.517
+shader_param/CENTER = Vector2( 0.5, 1 )
+
+[node name="Spring2D" type="Node2D"]
+position = Vector2( 128, 296 )
+
+[node name="rotation_uv" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( -24, -152 )
+scale = Vector2( 1.75, 1.75 )
+texture = SubResource( 14 )
+
+[node name="twirl_uv" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 56, 56 )
+scale = Vector2( 1.75, 1.75 )
+texture = SubResource( 14 )
+
+[node name="eiffel_twirl" type="Sprite" parent="twirl_uv"]
+material = SubResource( 4 )
+position = Vector2( 73.1429, 41.1429 )
+scale = Vector2( 0.258449, 0.274133 )
+texture = ExtResource( 3 )
+
+[node name="bend_uv" type="Sprite" parent="."]
+material = SubResource( 5 )
+position = Vector2( 312, 56 )
+scale = Vector2( 1.75, 1.75 )
+texture = SubResource( 14 )
+
+[node name="eiffel_bend_padding" type="Sprite" parent="bend_uv"]
+material = SubResource( 7 )
+position = Vector2( 73.1429, 27.4286 )
+scale = Vector2( 0.258286, 0.274286 )
+texture = ExtResource( 2 )
+
+[node name="eiffel_oscillator4" parent="." instance=ExtResource( 1 )]
+material = SubResource( 9 )
+position = Vector2( 680, 104 )
+
+[node name="eiffel_oscillator" parent="." instance=ExtResource( 1 )]
+material = SubResource( 10 )
+position = Vector2( 128, 360 )
+spring_constant = 1000.0
+
+[node name="eiffel_oscillator6" parent="." instance=ExtResource( 1 )]
+material = SubResource( 11 )
+position = Vector2( 296, 360 )
+spring_constant = 200.0
+
+[node name="eiffel_oscillator7" parent="." instance=ExtResource( 1 )]
+material = SubResource( 12 )
+position = Vector2( 472, 360 )
+spring_constant = 50.0
+
+[node name="eiffel_oscillator9" parent="." instance=ExtResource( 1 )]
+material = SubResource( 13 )
+position = Vector2( 640, 360 )
+spring_constant = 10.0
