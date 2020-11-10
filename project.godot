@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="Springy Oscillators"
 run/main_scene="res://3D/Spring3D.tscn"
-config/icon="res://eiffel_tower_icon.png"
+config/icon="res://icons/eiffel_tower_icon.png"
 
 [debug]
 
