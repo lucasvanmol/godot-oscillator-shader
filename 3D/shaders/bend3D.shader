@@ -39,8 +39,8 @@ void vertex() {
 		vec3(0, 0, 1)		
 	);
 
-	VERTEX = v * rot_x * rot_y * rot_z + center;
-	NORMAL = NORMAL * rot_x * rot_y * rot_z;
+	VERTEX = v * rot_y * rot_x * rot_z + center;
+	NORMAL = NORMAL * rot_y * rot_x * rot_z;
 }
 
 void fragment() {
